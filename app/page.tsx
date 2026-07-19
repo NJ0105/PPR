@@ -169,8 +169,8 @@ export default function Accueil() {
           <h1 className="text-xl font-bold text-yellow-500 tracking-tight">PPR🍑</h1>
           {!userId ? (
             <div className="flex gap-4 text-sm">
-              <Link href="/connexion" className="text-gray-300 font-medium hover:text-yellow-500">
-                Connexion
+              <Link href="/connecter" className="text-gray-300 font-medium hover:text-yellow-500">
+                connecter
               </Link>
               <Link href="/inscription" className="bg-yellow-500 text-black px-4 py-1.5 rounded-full font-semibold hover:bg-yellow-400">
                 S'inscrire
@@ -189,8 +189,8 @@ export default function Accueil() {
           <div className="text-center py-20 space-y-4">
             <p className="text-gray-400">Connectez-vous ou inscrivez-vous pour voir les publications.</p>
             <div className="flex justify-center gap-4">
-              <Link href="/connexion" className="bg-yellow-500 text-black px-4 py-2 rounded-full font-semibold">
-                Connexion
+              <Link href="/connecter" className="bg-yellow-500 text-black px-4 py-2 rounded-full font-semibold">
+                connecter
               </Link>
               <Link href="/inscription" className="border border-yellow-500 text-yellow-500 px-4 py-2 rounded-full font-semibold">
                 S'inscrire
@@ -278,79 +278,6 @@ export default function Accueil() {
           </>
         )}
 
-        <div className="space-y-6">
-          {publications.map((pub) => (
-            <article key={pub.id} className="relative bg-neutral-900 rounded-2xl shadow-sm border border-yellow-600/20 overflow-hidden">
-              {pub.type_contenu === 'video' ? (
-                <video src={pub.contenu_url} controls className="w-full bg-black" />
-              ) : (
-                <img src={pub.contenu_url} alt={pub.legende} className="w-full object-cover" />
-              )}
-
-              {estAdmin && (
-                <button
-                  onClick={() => supprimerPublication(pub.id)}
-                  className="absolute top-2 right-2 bg-black/60 text-red-400 text-xs px-3 py-1 rounded-full hover:bg-black/80"
-                >
-                  Supprimer
-                </button>
-              )}
-
-              <div className="p-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <button
-                    onClick={() => toggleLike(pub.id, pub.a_like)}
-                    disabled={!userId}
-                    className={`text-2xl transition-transform active:scale-90 ${
-                      pub.a_like ? 'text-yellow-500' : 'text-gray-600 hover:text-gray-400'
-                    }`}
-                  >
-                    ♥
-                  </button>
-                  <span className="text-sm text-gray-400 font-medium">{pub.likes_count} j'aime</span>
-                </div>
-
-                {pub.legende && (
-                  <p className="text-gray-100 mb-3 text-[15px] leading-snug">{pub.legende}</p>
-                )}
-
-                {pub.commentaires.length > 0 && (
-                  <div className="border-t border-yellow-600/20 pt-3 space-y-1.5 mb-1">
-                    {pub.commentaires.map((c) => (
-                      <p key={c.id} className="text-sm text-gray-300 leading-snug">
-                        <span className="font-semibold text-yellow-500">{c.pseudo}</span>{' '}
-                        {c.contenu}
-                      </p>
-                    ))}
-                  </div>
-                )}
-
-                {userId && (
-                  <div className="flex gap-2 mt-3 items-center">
-                    <input
-                      type="text"
-                      placeholder="Ajouter un commentaire..."
-                      value={pub.nouveauCommentaire}
-                      onChange={(e) => changerTexteCommentaire(pub.id, e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          envoyerCommentaire(pub.id, pub.nouveauCommentaire)
-                        }
-                      }}
-                      className="flex-1 border-none bg-transparent text-sm text-gray-100 placeholder-gray-600 focus:outline-none"
-                    />
-                    <button
-                      onClick={() => envoyerCommentaire(pub.id, pub.nouveauCommentaire)}
-                      className="text-yellow-500 font-semibold text-sm hover:text-yellow-400"
-                    >
-                      Envoyer
-                    </button>
-                  </div>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
       </main>
       <footer className="max-w-xl mx-auto px-4 py-6 text-center text-xs text-gray-600 space-x-4">
         <Link href="/mentions-legales" className="hover:text-gray-400">Mentions légales</Link>
