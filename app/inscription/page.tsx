@@ -42,8 +42,14 @@ export default function Inscription() {
       password,
     })
 
-    if (error) {
-      setMessage('Erreur : ' + error.message)
+   if (error) {
+      if (error.message.includes('rate limit') || error.message.includes('429')) {
+        setMessage('Trop de demandes en même temps. Veuillez réessayer dans quelques minutes.')
+      } else if (error.message.includes('already registered') || error.message.includes('already exists')) {
+        setMessage('Un compte existe déjà avec cet email.')
+      } else {
+        setMessage("Une erreur est survenue. Veuillez réessayer.")
+      }
       return
     }
 
