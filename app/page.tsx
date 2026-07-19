@@ -167,20 +167,20 @@ export default function Accueil() {
       <header className="bg-black border-b border-yellow-600/30 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-xl font-bold text-yellow-500 tracking-tight">PPR🍑</h1>
-          {!userId ? (
+         {!userId ? (
             <div className="flex gap-4 text-sm">
-              <Link href="/connecter" className="text-gray-300 font-medium hover:text-yellow-500">
-                connecter
+              <Link href="/connexion" className="text-gray-300 font-medium hover:text-yellow-500">
+                Connecter
               </Link>
               <Link href="/inscription" className="bg-yellow-500 text-black px-4 py-1.5 rounded-full font-semibold hover:bg-yellow-400">
                 S'inscrire
               </Link>
             </div>
-          ) : (
+          ) : estAdmin ? (
             <Link href="/publier" className="bg-yellow-500 text-black px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-yellow-400">
               + Publier
             </Link>
-          )}
+          ) : null}
         </div>
       </header>
 
