@@ -56,8 +56,12 @@ export default function Inscription() {
         date_naissance: dateNaissance,
       })
 
-      if (profileError) {
-        setMessage('Erreur profil : ' + profileError.message)
+     if (profileError) {
+        if (profileError.code === '23505') {
+          setMessage('Ce nom et prénom sont déjà utilisés par un autre compte.')
+        } else {
+          setMessage('Erreur profil : ' + profileError.message)
+        }
         return
       }
     }

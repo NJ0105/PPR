@@ -265,6 +265,10 @@ export default function Accueil() {
           ))}
         </div>
       </main>
+      <footer className="max-w-xl mx-auto px-4 py-6 text-center text-xs text-gray-600 space-x-4">
+        <Link href="/mentions-legales" className="hover:text-gray-400">Mentions légales</Link>
+        <Link href="/confidentialite" className="hover:text-gray-400">Confidentialité</Link>
+      </footer>
     </div>
   )
 }

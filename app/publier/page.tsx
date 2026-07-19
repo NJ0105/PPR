@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '../lib/supabase-client'
 import { useRouter } from 'next/navigation'
 
@@ -10,6 +10,26 @@ export default function Publier() {
   const [message, setMessage] = useState('')
   const [envoi, setEnvoi] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    const verifierAdmin = async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        router.push('/connexion')
+        return
+      }
+      const { data: profil } = await supabase
+        .from('profiles')
+        .select('is_admin')
+        .eq('id', user.id)
+        .maybeSingle()
+      if (!profil?.is_admin) {
+        router.push('/')
+      }
+    }
+    verifierAdmin()
+  }, [])
 
   const handlePublier = async (e: React.FormEvent) => {
     e.preventDefault()
